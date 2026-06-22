@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yiming (Devon) Xiong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fafaf8;
+    --surface: #f4f3ef;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6a64;
+    --accent: #3C3489;
+    --accent-light: #EEEDFE;
+    --accent-mid: #7F77DD;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+
+  .nav-name {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+    letter-spacing: 0.01em;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); text-decoration: none; }
+  .nav-links a.active { font-weight: 500; }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  section { padding: 4.5rem 0; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Hero */
+  .hero-eyebrow {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em { font-style: italic; color: var(--accent-mid); }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+
+  .hero-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .btn:hover { opacity: 0.7; text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  /* Research */
+  .research-item {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .research-item:last-child { border-bottom: none; }
+
+  .research-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .research-org { font-size: 12px; color: var(--muted); }
+
+  .research-title {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+    line-height: 1.4;
+  }
+
+  .research-desc { font-size: 14px; color: var(--muted); }
+
+  /* Experience */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date { font-size: 12px; color: var(--muted); padding-top: 3px; }
+  .exp-title { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+  .exp-org { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; }
+  .exp-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* Skills */
+  .skill-group { margin-bottom: 1.25rem; }
+  .skill-group-label { font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 0.04em; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  footer {
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .container { padding: 0 1.25rem; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-date { margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name" onclick="showPage('home')">Yiming (Devon) Xiong</span>
+  <ul class="nav-links">
+    <li><a onclick="showPage('research')" id="nav-research">Research</a></li>
+    <li><a onclick="showPage('publications')" id="nav-publications">Publications</a></li>
+    <li><a onclick="showPage('experience')" id="nav-experience">Experience</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <section>
+      <p class="hero-eyebrow">WashU M.A. Statistics '28 &nbsp;·&nbsp; Pitzer College B.A. Mathematics '26</p>
+      <h1>Statistics, causality,<br>and <em>why</em> things happen.</h1>
+      <p class="hero-desc">
+        I'm Devon — a statistician and developer working on causal inference, algorithmic fairness, and the tools that help us understand mechanisms rather than just patterns. Currently a visiting research assistant at USC.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="mailto:xyiming@wustl.edu">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/yiming-dx509" target="_blank">LinkedIn</a>
+        <a class="btn" href="https://github.com/DeXxxXX0099009" target="_blank">GitHub</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- RESEARCH -->
+  <div id="page-research" class="page">
+    <section>
+      <p class="section-label">Research</p>
+
+      <div class="research-item">
+        <div class="research-meta">
+          <span class="tag">Causal Inference</span>
+          <span class="tag">Algorithmic Fairness</span>
+          <span class="research-org">USC · Feb 2026 – Present</span>
+        </div>
+        <p class="research-title">Causal ANOVA decomposition with dependent covariates</p>
+        <p class="research-desc">Extending functional ANOVA decomposition to DAG-specified causal structures, applied to algorithmic fairness settings including COMPAS risk assessment.</p>
+      </div>
+
+      <div class="research-item">
+        <div class="research-meta">
+          <span class="tag">Bayesian Statistics</span>
+          <span class="tag">Topology</span>
+          <span class="research-org">Pitzer College · Jan 2026 – Present</span>
+        </div>
+        <p class="research-title">Asymptotic knot complexity via random grid diagram simulation</p>
+        <p class="research-desc">Using Bayesian regression in PyMC to study the O(N²) growth of crossing numbers in random knot diagrams. Senior thesis work.</p>
+      </div>
+
+      <div class="research-item">
+        <div class="research-meta">
+          <span class="tag">Political Science</span>
+          <span class="tag">Demographic Modeling</span>
+          <span class="research-org">CMC · Jan 2025 – Jan 2026</span>
+        </div>
+        <p class="research-title">Redistricting reform — LA Redistricting Lab</p>
+        <p class="research-desc">Built a pipeline for voter-file preprocessing and BISG-based demographic inference. Simulated alternative redistricting plans to evaluate representation outcomes.</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Publications &amp; Presentations</p>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Bayesian Modeling of Asymptotic Knot Complexity Using Random Grid Diagram Simulations</p>
+        <p class="research-desc">Xiong, Y. &nbsp;·&nbsp; <em>Manuscript in preparation, 2026</em></p>
+      </div>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Tracing a naturalistic artificial neural network's adaptation through memory and prediction</p>
+        <p class="research-desc">Minin A.*, Rabinowitz K.*, Xiong Y.*, Harper N., Marzen S. &nbsp;·&nbsp; <em>American Physical Society Joint Global Summit, March 2025</em></p>
+      </div>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Redistricting Reform for Los Angeles City Council: Statistical Models and Simulations</p>
+        <p class="research-desc">Xiong, Yiming (Devon) &nbsp;·&nbsp; <em>Poster — CCMS Poster Session &amp; MAA SoCal-Nevada Section Meeting, Oct 2025</em></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div id="page-publications" class="page">
+    <section>
+      <p class="section-label">Publications &amp; Presentations</p>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Bayesian Modeling of Asymptotic Knot Complexity Using Random Grid Diagram Simulations</p>
+        <p class="research-desc">Xiong, Y. &nbsp;·&nbsp; <em>Manuscript in preparation, 2026</em></p>
+      </div>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Tracing a naturalistic artificial neural network's adaptation through memory and prediction</p>
+        <p class="research-desc">Minin A.*, Rabinowitz K.*, Xiong Y.*, Harper N., Marzen S. &nbsp;·&nbsp; <em>American Physical Society Joint Global Summit, March 2025</em></p>
+      </div>
+
+      <div class="research-item">
+        <p class="research-title" style="font-size:15px;">Redistricting Reform for Los Angeles City Council: Statistical Models and Simulations</p>
+        <p class="research-desc">Xiong, Yiming (Devon) &nbsp;·&nbsp; <em>Poster — CCMS Poster Session &amp; MAA SoCal-Nevada Section Meeting, Oct 2025</em></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div id="page-experience" class="page">
+    <section>
+      <p class="section-label">Experience</p>
+
+      <div class="exp-item">
+        <div class="exp-date">May – Aug 2024</div>
+        <div>
+          <p class="exp-title">Machine Learning Engineer Intern</p>
+          <p class="exp-org">iSoftStone · Bellevue, WA</p>
+          <p class="exp-desc">Built an AI document generation system with RAG pipelines for retrieval and generation workflows.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jan 2024 – May 2025</div>
+        <div>
+          <p class="exp-title">Teaching Assistant</p>
+          <p class="exp-org">Harvey Mudd College &amp; Claremont McKenna College</p>
+          <p class="exp-desc">Supported undergraduate CS courses across two institutions — office hours, grading, and feedback for 40+ students.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jul – Aug 2023</div>
+        <div>
+          <p class="exp-title">Finance Intern</p>
+          <p class="exp-org">Haitong Securities · Shanghai</p>
+          <p class="exp-desc">Tracked corporate data in delisting cases; designed an Excel dashboard to analyze New Third Board policy outcomes.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem;">
+        <p class="section-label">Skills</p>
+        <div class="skill-group">
+          <p class="skill-group-label">Languages</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">R</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Statistics &amp; ML</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Causal Inference</span>
+            <span class="skill-tag">Bayesian Inference</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">PyMC</span>
+            <span class="skill-tag">Transformer Models</span>
+            <span class="skill-tag">RAG</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Full-stack</p>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Azure</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="page-contact" class="page">
+    <section>
+      <p class="section-label">Contact</p>
+      <h1 style="font-size: clamp(1.75rem, 4vw, 2.25rem); margin-bottom: 1rem;">Let's talk.</h1>
+      <p class="hero-desc">
+        Open to research collaborations, PhD opportunities, and internships in data science or ML engineering.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="mailto:xyiming@wustl.edu">xyiming@wustl.edu</a>
+        <a class="btn" href="https://www.linkedin.com/in/yiming-dx509" target="_blank">LinkedIn</a>
+        <a class="btn" href="https://github.com/DeXxxXX0099009" target="_blank">GitHub</a>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <p>Yiming (Devon) Xiong · WashU '28</p>
+</footer>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  var navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
